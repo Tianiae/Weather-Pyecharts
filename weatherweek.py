@@ -3,7 +3,7 @@ import pandas as pd
 import requests
 
 url = "https://weather.cma.cn/api/weather/"
-city_id = "45005"  # Ïã¸ÛµÄ³ÇÊĞID
+city_id = "45005"  # é¦™æ¸¯çš„åŸå¸‚ID
 response = requests.get(url + city_id)
 data = response.json()
 
@@ -11,7 +11,7 @@ location = data["data"]["location"]
 daily = data["data"]["daily"]
 last_update = data["data"]["lastUpdate"]
 
-columns = ["ÈÕÆÚ", "×î¸ßÎÂ¶È", "×îµÍÎÂ¶È", "°×ÌìÌìÆø", "Ò¹ÍíÌìÆø", "°×Ìì·çÏò", "Ò¹Íí·çÏò", "°×Ìì·çÁ¦", "Ò¹Íí·çÁ¦"]
+columns = ["æ—¥æœŸ", "æœ€é«˜æ¸©åº¦", "æœ€ä½æ¸©åº¦", "ç™½å¤©å¤©æ°”", "å¤œæ™šå¤©æ°”", "ç™½å¤©é£å‘", "å¤œæ™šé£å‘", "ç™½å¤©é£åŠ›", "å¤œæ™šé£åŠ›"]
 weather_df = pd.DataFrame(columns=columns)
 
 for day_data in daily:
@@ -26,22 +26,22 @@ for day_data in daily:
     night_wind_scale = day_data["nightWindScale"]
 
     weather_df = weather_df.append({
-        "ÈÕÆÚ": date,
-        "×î¸ßÎÂ¶È": high_temp,
-        "×îµÍÎÂ¶È": low_temp,
-        "°×ÌìÌìÆø": day_weather,
-        "Ò¹ÍíÌìÆø": night_weather,
-        "°×Ìì·çÏò": day_wind_direction,
-        "Ò¹Íí·çÏò": night_wind_direction,
-        "°×Ìì·çÁ¦": day_wind_scale,
-        "Ò¹Íí·çÁ¦": night_wind_scale
+        "æ—¥æœŸ": date,
+        "æœ€é«˜æ¸©åº¦": high_temp,
+        "æœ€ä½æ¸©åº¦": low_temp,
+        "ç™½å¤©å¤©æ°”": day_weather,
+        "å¤œæ™šå¤©æ°”": night_weather,
+        "ç™½å¤©é£å‘": day_wind_direction,
+        "å¤œæ™šé£å‘": night_wind_direction,
+        "ç™½å¤©é£åŠ›": day_wind_scale,
+        "å¤œæ™šé£åŠ›": night_wind_scale
     }, ignore_index=True)
 
-print("³ÇÊĞID:", location["id"])
-print("³ÇÊĞÃû³Æ:", location["name"])
-print("×îºó¸üĞÂÊ±¼ä:", last_update)
+print("åŸå¸‚ID:", location["id"])
+print("åŸå¸‚åç§°:", location["name"])
+print("æœ€åæ›´æ–°æ—¶é—´:", last_update)
 
-weather_df.to_csv('hong_kong_weather_7days1.csv', index=False, encoding='utf-8-sig')
+weather_df.to_csv('hong_kong_weather_7days.csv', index=False, encoding='utf-8-sig')
 
 
 
